@@ -1,5 +1,6 @@
 # NonadditivityAnalysis
-Notebook for standardization of actvity data, nonadditivity analysis and its evaluation.
+
+Notebook for standardization of activity data, nonadditivity analysis and its evaluation.
 
 A jupyter notebook for:
 1. Cleaning and standardizing ChEMBL activity data
@@ -14,52 +15,16 @@ A jupyter notebook for:
 
 ## Requirements
 
-
 Installation requirements are the same as for the published NAA code:
 
 - A copy of the RDKit cheminformatics toolkit, available
-from http://rdkit.org/ 
-
-- A running version of mmpdb, a matched molecular pairs
-database generation and analysis toolkit, available from
-http://github.com/rdkit/mmpdb
-    ```shell
-    git clone https://github.com/rdkit/mmpdb.git
-    cd mmpdb
-    python setup.py install
-    ```
-
+from http://rdkit.org/. The easiest way is to install via PyPI with
+  `pip install rdkit-pypi`.
 - A running version of NAA, nonadditivity analysis code, available from
 https://github.com/KramerChristian/NonadditivityAnalysis
     ```shell
-    git clone https://github.com/KramerChristian/NonadditivityAnalysis.git
-    cd NonadditivityAnalysis
-    # Add mmpdb path to line 44 of NonadditivityAnalysis.py
+    $ pip install git+https://github.com/KramerChristian/NonadditivityAnalysis.git
     ```
-
-In order to run the NAA code directly from jupyter notebook, 
-you need to set an environmental variable.
-Therefore, on command line, generate the following directories and files:
-
-```shell
-cd $CONDA_PREFIX
-mkdir -p ./etc/conda/activate.d
-mkdir -p ./etc/conda/deactivate.d
-touch ./etc/conda/activate.d/env_vars.sh
-touch ./etc/conda/deactivate.d/env_vars.sh
-```
-
-then edit ./etc/conda/activate.d/env_vars.sh as follows:
-```shell
-#!/bin/sh
-export NAA='/path/to/naa/code/'
-```
-
-and edit ./etc/conda/deactivate.d/env_vars.sh as follows:
-```shell
-#!/bin/sh
-unset NAA
-```
 
 Apart from this, standard scientific python libraries like scipy and 
 numpy are required as well as seaborn and matplotlib for plot generation in the analysis part.
