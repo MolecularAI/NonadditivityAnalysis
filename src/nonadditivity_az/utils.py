@@ -107,7 +107,8 @@ def rearrange(df):
 
 
 def generateStandarizedSmiles(smilesfile, smiles_column):
-    pool = mp.Pool(8)  # set number of cores for parallelization
+    # set number of cores for parallelization
+    pool = mp.Pool(8)
     stsmi_list = pool.starmap(standardize_rdkit, [(smi, smiles_column) for idx, smi in smilesfile.iterrows()])
     pool.close()
 
@@ -122,8 +123,7 @@ def merge_duplicate_smiles(df):
     - Keep the one with the highest value, i.e. most active one
     """
     df = df.sort_values('VALUE').drop_duplicates(subset=['SMILES'], keep='last')
-
-    return (df)
+    return df
 
 
 def discarding_heavy_mols(smi, min_size=0, max_size=70):
@@ -134,7 +134,7 @@ def discarding_heavy_mols(smi, min_size=0, max_size=70):
             return False
         else:
             return True
-    except:
+    except Exception:
         return True
 
 
