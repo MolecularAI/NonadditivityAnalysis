@@ -135,13 +135,13 @@ def draw_image(
                 cpds[0],
                 size=(300, 300),
                 legend=ids[0]
-                       + "        "
-                       + qualifiers_inv[0]
-                       + Acts[0]
-                       + " ("
-                       + qualifiers[0]
-                       + pActs[0]
-                       + ")",
+                + "        "
+                + qualifiers_inv[0]
+                + Acts[0]
+                + " ("
+                + qualifiers[0]
+                + pActs[0]
+                + ")",
             ),
             (0, 0),
         )
@@ -150,13 +150,13 @@ def draw_image(
                 cpds[1],
                 size=(300, 300),
                 legend=ids[1]
-                       + "        "
-                       + qualifiers_inv[1]
-                       + Acts[1]
-                       + " ("
-                       + qualifiers[1]
-                       + pActs[1]
-                       + ")",
+                + "        "
+                + qualifiers_inv[1]
+                + Acts[1]
+                + " ("
+                + qualifiers[1]
+                + pActs[1]
+                + ")",
             ),
             (350, 0),
         )
@@ -165,13 +165,13 @@ def draw_image(
                 cpds[2],
                 size=(300, 300),
                 legend=ids[2]
-                       + "        "
-                       + qualifiers_inv[2]
-                       + Acts[2]
-                       + " ("
-                       + qualifiers[2]
-                       + pActs[2]
-                       + ")",
+                + "        "
+                + qualifiers_inv[2]
+                + Acts[2]
+                + " ("
+                + qualifiers[2]
+                + pActs[2]
+                + ")",
             ),
             (350, 350),
         )
@@ -180,13 +180,13 @@ def draw_image(
                 cpds[3],
                 size=(300, 300),
                 legend=ids[3]
-                       + "        "
-                       + qualifiers_inv[3]
-                       + Acts[3]
-                       + " ("
-                       + qualifiers[3]
-                       + pActs[3]
-                       + ")",
+                + "        "
+                + qualifiers_inv[3]
+                + Acts[3]
+                + " ("
+                + qualifiers[3]
+                + pActs[3]
+                + ")",
             ),
             (0, 350),
         )
@@ -271,25 +271,25 @@ def draw_image(
     b = Chem.MolFromSmiles(tsmarts[0][: tsmarts[0].index(">")])
     new_im.paste(Draw.MolToImage(b, size=(50, 50)), (300, 90))
 
-    b = Chem.MolFromSmiles(tsmarts[0][tsmarts[0].index(">") + 2:])
+    b = Chem.MolFromSmiles(tsmarts[0][tsmarts[0].index(">") + 2 :])
     new_im.paste(Draw.MolToImage(b, size=(50, 50)), (300, 160))
 
     b = Chem.MolFromSmiles(tsmarts[0][: tsmarts[0].index(">")])
     new_im.paste(Draw.MolToImage(b, size=(50, 50)), (300, 440))
 
-    b = Chem.MolFromSmiles(tsmarts[0][tsmarts[0].index(">") + 2:])
+    b = Chem.MolFromSmiles(tsmarts[0][tsmarts[0].index(">") + 2 :])
     new_im.paste(Draw.MolToImage(b, size=(50, 50)), (300, 510))
 
     b = Chem.MolFromSmiles(tsmarts[1][: tsmarts[1].index(">")])
     new_im.paste(Draw.MolToImage(b, size=(50, 50)), (80, 300))
 
-    b = Chem.MolFromSmiles(tsmarts[1][tsmarts[1].index(">") + 2:])
+    b = Chem.MolFromSmiles(tsmarts[1][tsmarts[1].index(">") + 2 :])
     new_im.paste(Draw.MolToImage(b, size=(50, 50)), (170, 300))
 
     b = Chem.MolFromSmiles(tsmarts[1][: tsmarts[1].index(">")])
     new_im.paste(Draw.MolToImage(b, size=(50, 50)), (430, 300))
 
-    b = Chem.MolFromSmiles(tsmarts[1][tsmarts[1].index(">") + 2:])
+    b = Chem.MolFromSmiles(tsmarts[1][tsmarts[1].index(">") + 2 :])
     new_im.paste(Draw.MolToImage(b, size=(50, 50)), (520, 300))
 
     new_im.save(image_file)
