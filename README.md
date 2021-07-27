@@ -13,16 +13,23 @@ A jupyter notebook for:
 
 ## Installation
 
-Installation requirements are the same as for the published NAA code:
-
-- A copy of the RDKit cheminformatics toolkit, available
+First, install a copy of the RDKit cheminformatics toolkit, available
 from http://rdkit.org/. The easiest way is to install via PyPI with
-  `pip install rdkit-pypi`.
-- A running version of NAA, nonadditivity analysis code, available from
-https://github.com/KramerChristian/NonadditivityAnalysis
-    ```shell
-    $ pip install git+https://github.com/KramerChristian/NonadditivityAnalysis.git
-    ```
+`pip install rdkit-pypi`.
+
+Install directly from source with:
+
+```bash
+$ pip install git+https://github.com/MolecularAI/NonadditivityAnalysis.git
+```
+
+Install the code in development mode with:
+
+```bash
+$ git clone git+https://github.com/MolecularAI/NonadditivityAnalysis.git
+$ cd NonadditivityAnalysis
+$ pip install -e .
+```
 
 ## Usage
 
