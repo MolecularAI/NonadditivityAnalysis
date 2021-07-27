@@ -1,14 +1,15 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
 from PIL import Image, ImageDraw
 from rdkit import Chem, Geometry
 from rdkit.Chem import AllChem, Draw, rdFMCS
+from scipy.stats import normaltest
 
 
-def NA_distribution(x, normal_dist):
+def NA_distribution(x, significant_thrs, alpha: float = 0.05):
     sns.set_style("ticks")
-    fig, ax = plt.subplots(1, 1)
-    fig.set_size_inches(10, 8)
+    fig, ax = plt.subplots(1, 1, figsize=(6, 3.5))
     sns.distplot(
         x,
         hist=True,
@@ -16,41 +17,49 @@ def NA_distribution(x, normal_dist):
         bins=int(100 / 5),
         color="crimson",
         kde_kws={"shade": True, "linewidth": 2},
+        ax=ax,
+        label="Real",
     )
+    n_of_cycles = len(x)
+    normal_dist = np.random.normal(loc=0, scale=significant_thrs, size=n_of_cycles)
     sns.distplot(
         normal_dist,
         hist=False,
         kde=True,
         color="grey",
         kde_kws={"shade": True, "linewidth": 2},
+        ax=ax,
+        label="Theoretical",
     )
+    plt.legend()
 
-    legend = ["Real", "Theoretical"]
+    stat, p = normaltest(x)
+    if p > alpha:
+        plt.title(f"Nonadditivity is Gaussian ($p<{p:.2e}$)")
+    else:
+        plt.title(f"Nonadditivity is not Gaussian ($p<{p:.2e}$)")
 
-    plt.legend(legend, prop={"size": 20})  # title = '')
-    plt.title("", size=30)
-    plt.xlabel("Nonadditivity", size=25)
-    plt.ylabel("Density", size=25)
+    plt.xlabel("Nonadditivity")
+    plt.ylabel("Density")
 
-    plt.show()
+    return fig, ax
 
 
 def plot_outliers(x, title):
     sns.set_style("ticks")
     fig, ax = plt.subplots(1, 1)
-    fig.set_size_inches(10, 8)
     sns.distplot(
         x,
         hist=True,
         kde=True,
-        bins=int(100 / 5),
         color="crimson",
         kde_kws={"shade": True, "linewidth": 2},
+        ax=ax,
     )
 
-    plt.title(title, size=30)
-    plt.xlabel("pActivity Value", size=25)
-    plt.ylabel("Density", size=25)
+    plt.title(title)
+    plt.xlabel("pActivity Value")
+    plt.ylabel("Density")
 
 
 def draw_image(
