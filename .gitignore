@@ -409,3 +409,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/python,intellij,pycharm,macos,windows,linux,vim
+
+# Don't commit example results
+ChEMBL_1614027_*
