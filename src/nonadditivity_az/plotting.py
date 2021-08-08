@@ -56,10 +56,10 @@ def plot_outliers(x, title):
         kde_kws={"shade": True, "linewidth": 2},
         ax=ax,
     )
-
-    plt.title(title)
-    plt.xlabel("pActivity Value")
-    plt.ylabel("Density")
+    ax.set_title(title)
+    ax.set_xlabel("pActivity Value")
+    ax.set_ylabel("Density")
+    return fig, ax
 
 
 def draw_image(

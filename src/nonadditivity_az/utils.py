@@ -1,10 +1,45 @@
 import multiprocessing as mp
+from pathlib import Path
+from typing import Tuple
 
 import numpy as np
 import pandas as pd
+import pystow
 from rdkit import Chem
 from rdkit.Chem import MolStandardize
 from rdkit.Chem.MolStandardize import rdMolStandardize
+
+import chembl_downloader
+from chembl_downloader.queries import get_assay_sql
+
+MODULE = pystow.module("nonadditivity")
+
+
+def get_processed_assay_df(assay_chembl_id: str) -> Tuple[pd.DataFrame, Path]:
+    submodule = MODULE.submodule(assay_chembl_id)
+    assay_raw_path = submodule.join(name="raw.tsv")
+    assay_processed_path = submodule.join(name="processed.tsv")
+
+    if assay_processed_path.is_file():
+        return pd.read_csv(assay_processed_path, sep="\t"), assay_processed_path
+
+    if assay_raw_path.is_file():
+        data = pd.read_csv(assay_raw_path, sep="\t")
+    else:
+        data = chembl_downloader.query(get_assay_sql(assay_chembl_id))
+        data.columns = [
+            "Smiles",
+            "Molecule ChEMBL ID",
+            "Standard Type",
+            "Standard Relation",
+            "Standard Value",
+            "Standard Units",
+        ]
+        data.to_csv(assay_raw_path, sep="\t", index=False)
+
+    df = process(data)
+    df.to_csv(assay_processed_path, sep="\t", index=False)
+    return df, assay_processed_path
 
 
 def discard_nan_smiles(df):
@@ -97,26 +132,6 @@ def standardize_rdkit(row, col):
     return tsmi
 
 
-def rearrange(df):
-    """Rearrange columns and keep the ones necessary"""
-    df = df.rename(
-        columns=(
-            {
-                "Molecule ChEMBL ID": "COMPOUND_NAME",
-                "Smiles": "SMILES",
-                "Standard Value": "VALUE",
-                "Standard Units": "UNIT",
-                "Standard Type": "ENDPOINT",
-            }
-        )
-    )
-    df = df[
-        ["SMILES", "COMPOUND_NAME", "ENDPOINT", "Standard Relation", "VALUE", "UNIT"]
-    ]
-
-    return df
-
-
 def generateStandarizedSmiles(smilesfile, smiles_column):
     # set number of cores for parallelization
     pool = mp.Pool(8)
@@ -165,7 +180,21 @@ def removeHeavyMols(df, smiles_column):
 
 
 def process(data: pd.DataFrame):
-    df = rearrange(data)
+    df = data.rename(
+        columns=(
+            {
+                "Molecule ChEMBL ID": "COMPOUND_NAME",
+                "Smiles": "SMILES",
+                "Standard Value": "VALUE",
+                "Standard Units": "UNIT",
+                "Standard Type": "ENDPOINT",
+            }
+        )
+    )
+    df = df[
+        ["SMILES", "COMPOUND_NAME", "ENDPOINT", "Standard Relation", "VALUE", "UNIT"]
+    ]
+
     print("#cmpds: ", len(df["COMPOUND_NAME"]))
     print("#unique cmpds: ", len(df["COMPOUND_NAME"].value_counts()))
 
