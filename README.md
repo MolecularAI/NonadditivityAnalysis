@@ -2,7 +2,7 @@
 
 Notebook for standardization of activity data, nonadditivity analysis and its evaluation.
 
-A jupyter notebook for:
+A Python package and corresponding Jupyter notebook for:
 
 1. Cleaning and standardizing ChEMBL activity data
 2. Running nonadditivity analysis based on NAA code published by C. Kramer [1]
@@ -33,7 +33,5 @@ $ pip install -e .
 
 ## Usage
 
-The jupyter notebook can be run directly with gzipped activity data downloaded from ChEMBL, 
-as an example the activity data for ChEMBL1614027 (ChEMBL Version 27) is included in this package.
-'my_path' and 'my_name' has to be adjusted at the beginning of the jupyter notebook to 
-reflect the user's specific path and output name.
+The Jupyter notebook can be run for any ChEMBL assay via the `get_processed_assay_df()` function.
+While `ChEMBL1614027` is used as an example, any can be used by changing the `assay_chembl_id` variable.
