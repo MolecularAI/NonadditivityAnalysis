@@ -1,3 +1,5 @@
+ **Please note: this repository is no longer being maintained.**
+
 # NonadditivityAnalysis
 Notebook for standardization of actvity data, nonadditivity analysis and its evaluation.
 
