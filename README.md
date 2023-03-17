@@ -1,9 +1,11 @@
  **Please note: this repository is no longer being maintained.**
 
 # NonadditivityAnalysis
-Notebook for standardization of actvity data, nonadditivity analysis and its evaluation.
 
-A jupyter notebook for:
+Notebook for standardization of activity data, nonadditivity analysis and its evaluation.
+
+A Python package and corresponding Jupyter notebook for:
+
 1. Cleaning and standardizing ChEMBL activity data
 2. Running nonadditivity analysis based on NAA code published by C. Kramer [1]
 3. Evaluating the nonadditivity results
@@ -11,78 +13,27 @@ A jupyter notebook for:
 [1] Kramer C (2019) Nonadditivity Analysis. J Chem Inf Model 59:4034–4042. 
     https://doi.org/10.1021/acs.jcim.9b00631
 
+## Installation
 
---------------------
+First, install a copy of the RDKit cheminformatics toolkit, available
+from http://rdkit.org/. The easiest way is to install via PyPI with
+`pip install rdkit-pypi`.
 
-## Requirements
+Install directly from source with:
 
-
-Installation requirements are the same as for the published NAA code:
-
-- A copy of the RDKit cheminformatics toolkit, available
-from http://rdkit.org/ 
-
-- A running version of mmpdb, a matched molecular pairs
-database generation and analysis toolkit, available from
-http://github.com/rdkit/mmpdb
-    ```shell
-    git clone https://github.com/rdkit/mmpdb.git
-    cd mmpdb
-    python setup.py install
-    ```
-
-- A running version of NAA, nonadditivity analysis code, available from
-https://github.com/KramerChristian/NonadditivityAnalysis
-    ```shell
-    git clone https://github.com/KramerChristian/NonadditivityAnalysis.git
-    cd NonadditivityAnalysis
-    # Add mmpdb path to line 44 of NonadditivityAnalysis.py
-    ```
-
-In order to run the NAA code directly from jupyter notebook, 
-you need to set an environmental variable.
-Therefore, on command line, generate the following directories and files:
-
-```shell
-cd $CONDA_PREFIX
-mkdir -p ./etc/conda/activate.d
-mkdir -p ./etc/conda/deactivate.d
-touch ./etc/conda/activate.d/env_vars.sh
-touch ./etc/conda/deactivate.d/env_vars.sh
+```bash
+$ pip install git+https://github.com/MolecularAI/NonadditivityAnalysis.git
 ```
 
-then edit ./etc/conda/activate.d/env_vars.sh as follows:
-```shell
-#!/bin/sh
-export NAA='/path/to/naa/code/'
-```
+Install the code in development mode with:
 
-and edit ./etc/conda/deactivate.d/env_vars.sh as follows:
-```shell
-#!/bin/sh
-unset NAA
+```bash
+$ git clone git+https://github.com/MolecularAI/NonadditivityAnalysis.git
+$ cd NonadditivityAnalysis
+$ pip install -e .
 ```
-
-Apart from this, standard scientific python libraries like scipy and 
-numpy are required as well as seaborn and matplotlib for plot generation in the analysis part.
-```shell
-conda install -c anaconda scipy
-conda install -c anaconda numpy
-conda install -c conda-forge matplotlib
-conda install seaborn
-```
-
--------------------
 
 ## Usage
 
-
-The jupyter notebook can be run directly with gzipped activity data downloaded from ChEMBL, 
-as an example the activity data for ChEMBL1614027 (ChEMBL Version 27) is included in this package.
-'my_path' and 'my_name' has to be adjusted at the beginning of the jupyter notebook to 
-reflect the user's specific path and output name.
-
-
-
-
-
+The Jupyter notebook can be run for any ChEMBL assay via the `get_processed_assay_df()` function.
+While `ChEMBL1614027` is used as an example, any can be used by changing the `assay_chembl_id` variable.
